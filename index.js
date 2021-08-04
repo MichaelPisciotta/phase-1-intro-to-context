@@ -13,36 +13,84 @@ function createEmployeeRecord(array){
 
 
 function createEmployeeRecords(twoRows){
-    let record2 = createEmployeeRecord(twoRows)
-    return record2
-
+    // let record2 = createEmployeeRecord(twoRows)
+    return twoRows.map(record => {
+       return createEmployeeRecord(record)
+    })
 }
 
 
 
 
+function createTimeInEvent(obj, dateStamp){
+    let [date, hour] = dateStamp.split(' ')
 
-function createTimeInEvent(){
-
+     obj.timeInEvents.push({
+        type: "TimeIn",
+        hour: parseInt(hour, 10),
+        date: date
+    })
+    return obj;
 }
 
-function createTimeOutEvent(){
 
+function createTimeOutEvent(obj, dateStamp){
+    let [date, hour] = dateStamp.split(' ')
+
+     obj.timeOutEvents.push({
+        type: "TimeOut",
+        hour: parseInt(hour, 10),
+        date: date
+    })
+    return obj;
 }
 
-function hoursWorkedOnDate(){
+
+//given a date, find number of hours between timeInEvent and timeOutEvent
+function hoursWorkedOnDate(obj, dateStamp){ 
+    let [date, hour] = dateStamp.split(' ')
+    let timeIn = obj.timeInEvents.find((obj) => obj.date === dateStamp)
+    let timeOut = obj.timeOutEvents.find((obj) => obj.date === dateStamp)
+    let hours = (timeOut.hour - timeIn.hour) /100
+    return hours
     
 }
 
 
-function wagesEarnedOnDate(){
-    
+function wagesEarnedOnDate(obj, dateStamp){
+    let rate = 27
+    let hours = hoursWorkedOnDate(obj, dateStamp)
+    return hours * rate
 }
 
-function allWagesFor(){
-    
-}
 
-function calculatePayroll(){
+
+
+
+let allWagesFor = function(employee){
+    let eligibleDates = employee.timeInEvents.map(function(e){
+    return e.date
+    })
     
-}
+    let payable = eligibleDates.reduce(function(memo, d){
+    return memo + wagesEarnedOnDate(employee, d) //memo = accumulator, agesEarnedOnDate(employee, d) is throwing each date of employee into agesEarnedOnDate function
+    }, 0)
+    
+    return payable //accumulating variable 
+    }
+
+
+
+function calculatePayroll(employees){
+
+    return employees.reduce((m, e) => { 
+        debugger;
+        m + wagesEarnedOnDate(e)
+    }, 0)
+
+    }
+
+
+
+
+
