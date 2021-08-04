@@ -37,6 +37,8 @@ describe("The payroll system", function () {
     })
   })
 
+
+
   describe("process an Array of Arrays into an Array of employee records", function () {
     it("has a function called createEmployeeRecords", function () {
       expect(createEmployeeRecords).to.exist
@@ -81,6 +83,9 @@ describe("The payroll system", function () {
       })
     })
   })
+
+
+
 
   describe("it adds a timeIn event Object to an employee's record of timeInEvents when provided an employee record and Date/Time String and returns the updated record", function () {
 
@@ -146,6 +151,9 @@ describe("The payroll system", function () {
     })
   })
 
+
+
+
   describe("Given an employee record with a date-matched timeInEvent and timeOutEvent", function () {
 
     it("hoursWorkedOnDate calculates the hours worked when given an employee record and a date", function () {
@@ -178,6 +186,8 @@ describe("The payroll system", function () {
     })
   })
 
+  
+
   describe("Given an employee record with MULTIPLE date-matched timeInEvent and timeOutEvent", function () {
 
     it("allWagesFor aggregates all the dates' wages and adds them together", function () {
@@ -198,6 +208,13 @@ describe("The payroll system", function () {
       })
     })
   })
+
+
+
+
+
+
+
 
   describe("Given an array of multiple employees", function () {
     it("calculatePayroll aggregates all the dates' wages and adds them together", function () {
